@@ -1,0 +1,10 @@
+#Concert Band Score Order dictionary
+
+cb_score_order = {
+  'woodwinds': ['piccolo', 'flute 1', 'flute 2', 'flute 3','oboe 1','oboe 2', 'bassoon',
+                'clarinet 1', 'clarinet 2', 'clarinet 3','bass clarinet', 'alto saxophone 1',
+                'alto saxophone 2', 'tenor saxophone', 'baritone saxophone'],
+  'brass': ['horn', 'trumpet 1', 'trombone 1'],
+  'percussion': ['percussion 1', 'percussion 2'],
+}
+ 

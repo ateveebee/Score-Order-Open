@@ -3,16 +3,17 @@ import fnmatch
 import glob
 import pprint
 import json
+import subprocess
+import webbrowser
 
-##### To do: create dictionary that defines score order,
+
 
 
 
 #for file in glob.glob("clarinet"):
     #print(file)
 
-#for filename in os.listdir(directory):
-        #print(filename)
+
 
 
 
@@ -23,98 +24,81 @@ import json
 
 
 
-# Defines score order
-
-#Concert Band Score Order JSON
-
-cb_so_json = {
-    "woodwinds": [
-      {
-        "flute":["piccolo",
-                "flute 1",
-                "flute 2",
-                "flute 3",],
-        "oboe": ["oboe 1",
-                 "oboe 2",],
-        "bassoon": ["bassoon 1",
-                    "bassoon 2",],
-        "clarinet": ["clarinet 1",
-                    "clarinet 2",
-                    "clarinet 3",
-                    "bass clarinet"],
-        "saxophone": ["alto saxophone 1",
-                      "alto saxophone 2",
-                      "tenor saxophone",
-                      "baritone saxophone",],
-      }
-    ],
-
-    "brass": [
-      {
-        "horn":["horn 1",
-                "horn 2",
-                "horn 3",
-                "horn 4",
-                "horn 1_2",
-                "horn 3_4"],
-        "trumpet": ["trumpet 1",
-                 "trumpet 2",],
-        "trombone": ["bassoon 1",
-                    "bassoon 2",],
-        "euphonium": ["euphonium 1",
-                    "euphonium 2",
-                    "euphonium",],
-        "tuba": ["tuba",
-                 "tuba 1",
-                 "tuba 2"],
-      }
-    ],
-
-
-        "percussion": [
-          {
-            "percussion":["percussion 1",
-                    "percussion 2",
-                    "percussion 3",],
-            "timpani": ["timpani"],
-            "xylophone": ["bassoon 1",
-                        "bassoon 2",],
-            "marimba": ["marimba",],
-            "bells and chimes": ["bells and chimes",],
-          }
-        ],
-    }
-
-#cb = json.loads(cb_so_json)
-print(cb_so_json)
-#print(cb_so_json['woodwinds'][0]['oboe'])
-
-#Concert Band Score Order dictionary
-
-cb_score_order = {
-  'woodwinds': ['piccolo', 'flute 1', 'flute 2', 'flute 3','oboe 1','oboe 2', 'bassoon',
-                'clarinet 1', 'clarinet 2', 'clarinet 3','bass clarinet', 'alto saxophone 1',
-                'alto saxophone 2', 'tenor saxophone', 'baritone saxophone'],
-  'brass': ['horn', 'trumpet 1', 'trombone 1'],
-  'percussion': ['percussion 1', 'percussion 2'],
-}
-
-json_object = json.dumps(cb_score_order, indent = 4)
-
-
 
 # Creates variable to grab every PDF file in the main directory/sub directories
 
+#Lizzie and Lucy
 directory = '/Users/drakedomingue/Desktop/Part PDFs/Lizzie and Lucy PARTS/'
+sub_directory = '/Users/drakedomingue/Desktop/Part PDFs/Lizzie and Lucy PARTS/Lizzie and Lucy PDF Parts/'
+
+#Twilight Waltz
+
+#directory = '/Users/drakedomingue/Desktop/Part PDFs/49519 - YS - Twilight Waltz'
+#sub_directory = '/Users/drakedomingue/Desktop/Part PDFs/49519 - YS - Twilight Waltz/49519_ENG_PDF'
+
 part_pdf = glob.glob(f"{directory}/**/*.pdf", recursive = True)
+part_pdf_please = glob.glob(f"{sub_directory}/**/*.pdf", recursive = True)
+
+os.chdir(directory)
 
 
-#Creates list of all PDFS without file path
+
+
+#for filename in part_pdf:
+    #os.system(filename)
+    #subprocess.Popen(filename, shell=True)
+
+    #print(filename)
+    #os.system(filename)
+    #subprocess.Popen(filename, shell=True)
+
+
+#Creates list of all PDFS without file path. Not functional yet when working with files
 
 for part in part_pdf:
     edit_part = [part[106:] for part in part_pdf]
 
-edit_json = json.dumps(edit_part, indent = 4)
+#Function that finds woodwind PDFs in a directory
+def find_woodwinds():
+    flute = [match for match in part_pdf if "Flu" in match]
+    oboe = [match for match in part_pdf if "Ob" in match]
+    bassoon = [match for match in part_pdf if "Bassoon" in match]
+    clarinet = [match for match in part_pdf if "Clar" in match]
+    sax = [match for match in part_pdf if "Sax" in match]
+
+    wws = []
+
+    for winds in flute:
+        wws.append(winds)
+    for winds in oboe:
+        wws.append(winds)
+    for winds in bassoon:
+        wws.append(winds)
+    for winds in clarinet:
+        wws.append(winds)
+    for winds in sax:
+        wws.append(winds)
+
+    return wws
+
+woodwind_print = find_woodwinds()
+
+#print(woodwind_print)
+
+
+#for files in directory:
+#    wws_2 = []
+#    if files in woodwind_print:
+    #    wws_2.append(winds)
+
+wws2 = list(set(part_pdf).intersection(set(woodwind_print)))
+
+print(wws2)
+
+#webbrowser.open_new(part_pdf[0])
+#subprocess.Popen(part_pdf[0], shell=True)
+#os.system(part_pdf[3])
+
 
 
 
